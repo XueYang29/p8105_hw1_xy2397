@@ -10,6 +10,11 @@ output:
 ---
 
 
+```{r setup, include=FALSE[]}
+library(tidyverse)
+library(ggplot2)
+```
+
 
 # Problem 1
 
@@ -33,7 +38,7 @@ In some cases, you can explicitly convert variables from one type to another. Wr
 uniform_sample = runif (10, 0, 5)
 logical_vector = uniform_sample > 2
 character_vector = c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j')
-factor_vector = factor(character_vector)
+factor_vector = factor(c(1, 2, 3, 4, 5, 5, 4, 3, 2, 1),)
 data_frame = data.frame(uniform_sample, logical_vector, character_vector, factor_vector)
 ```
 
@@ -81,4 +86,83 @@ as.character(data_frame$factor_vector)
 as.numeric(as.character(data_frame$factor_vector))
 ```
 
+
+
+
+# Problem 2
+
+## Question:
+
+This problem focuses on plotting and the use of inline R code.
+
+Create a data frame comprised of:
+x: a random sample of size 1000 from a standard Normal distribution
+y: a random sample of size 1000 from a standard Normal distribution
+A logical vector indicating whether the x + y > 0
+A numeric vector created by coercing the above logical vector
+A factor vector created by coercing the above logical vector
+Write a short description of your vector using inline R code, including: * the size of the dataset * the mean and median of x * the proportion of cases for which the logical vector is TRUE
+
+Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+
+Export your first scatterplot to your project directory using ggsave.
+
+
+
+## Solution:
+
+1. Firstly, creating the data frame
+
+```{r}
+x = rnorm(1000)
+y = rnorm(1000)
+logical_vector_xy = x+y > 0
+numeric_vector_xy = as.numeric(logical_vector)
+factor_vector_xy = as.factor(logical_vector)
+
+data_frame_xy = data.frame(x, y,logical_vector_xy,numeric_vector_xy,factor_vector_xy)
+```
+
+
+2. Writing a short description of the vector
+
+* the size of the dataset is row `r nrow(data_frame_xy)` and col `r (ncol(data_frame_xy))` 
+* the mean and median of x is `r mean(x)` and `r median(x)`
+* the proportion of cases for which the logical vector is TRUE is `r sum(x + y > 0)/length(logical_vector_xy)`
+
+3. Making scatterplots of y vs x
+
+*   First scatterplot color points using the logical variable
+```{r}
+ggplot(data_frame_xy, aes(x = x, y = y, color = logical_vector_xy))+
+geom_point()+
+labs(title = "Scatterplot of y vs x coloring by logical variable") 
+```
+
+*   And export this scatterplot to project directory
+```{r}
+ggsave(filename = "first scatterplot.png",ggplot(data_frame_xy, aes(x = x, y = y, color = logical_vector_xy))+
+geom_point()+
+labs(title = "Scatterplot of y vs x coloring by logical variable") )
+```
+
+
+*   Second scatterplot color points using the numeric variable
+```{r}
+ggplot(data_frame_xy, aes(x = x, y = y, color = numeric_vector_xy))+
+geom_point()+
+labs(title = "Scatterplot of y vs x coloring by numeric variable") 
+```
+
+
+*   Third scatterplot color points using the factor variable
+```{r}
+ggplot(data_frame_xy, aes(x = x, y = y, color = factor_vector_xy))+
+geom_point()+
+labs(title = "Scatterplot of y vs x coloring by factor variable") 
+```
+
+By looking through these three scatterplot, we can find that the color scales is different from the first one to the second one or the third one, but there is no difference between the color scales from the second one to the third one. 
+
+It is easy to explian, since both x and y are random sample from standard normal distribution, so the number of x or y larger than 0 is almost the same as the number of x or y smaller than 0, and furthermore, the number of x+y larger than 0 also almost the same as the number of x+y smaller than 0. What's more, the points can be separated by the line: x+y=0, above the line means x+y>0, and below the line means x+y<0.
 
