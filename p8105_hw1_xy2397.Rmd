@@ -49,7 +49,7 @@ character_vector = c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j')
 # A (length-10) factor vector
 factor_vector = factor(c(1, 2, 3, 4, 5, 5, 4, 3, 2, 1))
 
-# Creat them to be a data frame
+# Creating them to be a data frame
 data_frame = data.frame(uniform_sample, logical_vector, character_vector, factor_vector)
 ```
 
@@ -153,7 +153,7 @@ data_frame_xy = data.frame(x, y,logical_vector_xy,numeric_vector_xy,factor_vecto
 2. Writing a short description of the vector
 
 * the size of the dataset is row `r nrow(data_frame_xy)` and col `r (ncol(data_frame_xy))` 
-* the mean and median of x is `r mean(x)` and `r median(x)`
+* the mean of x is `r mean(x)` and median of x is `r median(x)`
 * the proportion of cases for which the logical vector is TRUE is `r sum(x + y > 0)/length(logical_vector_xy)`
 
 3. Making scatterplots of y vs x
@@ -188,7 +188,9 @@ geom_point()+
 labs(title = "Scatterplot of y vs x coloring by factor variable") 
 ```
 
-By looking through these three scatterplot, we can find that the color scales is different from the first one to the second one or the third one, but there is no difference between the color scales from the second one to the third one. 
+By looking through these three scatterplot, we can find that the color scale of the first one is different from the second one and the third one, but there is no difference between the color scales from the second one to the third one. 
 
-It is easy to explian, since both x and y are random sample from standard normal distribution, so the number of x or y larger than 0 is almost the same as the number of x or y smaller than 0, and furthermore, the number of x+y larger than 0 also almost the same as the number of x+y smaller than 0. What's more, the points can be separated by the line: x+y=0, above the line means x+y>0, and below the line means x+y<0.
+It is easy to explian, since both x and y are random sample from standard normal distribution, so the number of x or y larger than 0 is almost the same as the number of x or y smaller than 0, and furthermore, the number of x+y larger than 0 also almost the same as the number of x+y smaller than 0. 
+
+When we use logical variable to color the point, the points can be separated by the line: x+y=0, above the line means x+y>0, and below the line means x+y<0. While when we use numeric and factor variables to color the points, since both numeric and factor created by coercing the logical vector, so the numerics equaling to 1 or 0 scale uniform and the factors leveling TRUE or FALSE scale uniform.
 
