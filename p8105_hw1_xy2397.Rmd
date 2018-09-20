@@ -21,10 +21,10 @@ library(ggplot2)
 ## Question:
 Create a data frame comprised of:
 
-* A random sample of size 10 from a uniform[0, 5] distribution.
-* A logical vector indicating whether elements of the sample are greater than 2.
-* A (length-10) character vector.
-* A (length-10) factor vector.
+* A random sample of size 10 from a uniform[0, 5] distribution
+* A logical vector indicating whether elements of the sample are greater than 2
+* A (length-10) character vector
+* A (length-10) factor vector
 
 Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?
 
@@ -109,11 +109,13 @@ as.numeric(as.character(data_frame$factor_vector))
 This problem focuses on plotting and the use of inline R code.
 
 Create a data frame comprised of:
-x: a random sample of size 1000 from a standard Normal distribution
-y: a random sample of size 1000 from a standard Normal distribution
-A logical vector indicating whether the x + y > 0
-A numeric vector created by coercing the above logical vector
-A factor vector created by coercing the above logical vector
+
+* x: a random sample of size 1000 from a standard Normal distribution
+* y: a random sample of size 1000 from a standard Normal distribution
+* A logical vector indicating whether the x + y > 0
+* A numeric vector created by coercing the above logical vector
+* A factor vector created by coercing the above logical vector
+
 Write a short description of your vector using inline R code, including: * the size of the dataset * the mean and median of x * the proportion of cases for which the logical vector is TRUE
 
 Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
@@ -126,13 +128,24 @@ Export your first scatterplot to your project directory using ggsave.
 
 1. Firstly, creating the data frame
 
-```{r}
+```{r creating_data_frame_2}
+
+# x: a random sample of size 1000 from a standard Normal distribution
 x = rnorm(1000)
+
+# y: a random sample of size 1000 from a standard Normal distribution
 y = rnorm(1000)
+
+# A logical vector indicating whether the x + y > 0
 logical_vector_xy = x+y > 0
+
+# A numeric vector created by coercing the above logical vector
 numeric_vector_xy = as.numeric(logical_vector)
+
+# A factor vector created by coercing the above logical vector
 factor_vector_xy = as.factor(logical_vector)
 
+# Creating them to a data frame
 data_frame_xy = data.frame(x, y,logical_vector_xy,numeric_vector_xy,factor_vector_xy)
 ```
 
@@ -146,14 +159,14 @@ data_frame_xy = data.frame(x, y,logical_vector_xy,numeric_vector_xy,factor_vecto
 3. Making scatterplots of y vs x
 
 *   First scatterplot color points using the logical variable
-```{r}
+```{r scatterplot_color_logical}
 ggplot(data_frame_xy, aes(x = x, y = y, color = logical_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by logical variable") 
 ```
 
 *   And export this scatterplot to project directory
-```{r}
+```{r export_scatterplot}
 ggsave(filename = "first scatterplot.png",ggplot(data_frame_xy, aes(x = x, y = y, color = logical_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by logical variable") )
@@ -161,7 +174,7 @@ labs(title = "Scatterplot of y vs x coloring by logical variable") )
 
 
 *   Second scatterplot color points using the numeric variable
-```{r}
+```{r scatterplot_color_numeric}
 ggplot(data_frame_xy, aes(x = x, y = y, color = numeric_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by numeric variable") 
@@ -169,7 +182,7 @@ labs(title = "Scatterplot of y vs x coloring by numeric variable")
 
 
 *   Third scatterplot color points using the factor variable
-```{r}
+```{r scatterplot_color_factor}
 ggplot(data_frame_xy, aes(x = x, y = y, color = factor_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by factor variable") 
