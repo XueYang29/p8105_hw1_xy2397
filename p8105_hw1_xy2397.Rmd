@@ -21,10 +21,11 @@ library(ggplot2)
 ## Question:
 Create a data frame comprised of:
 
-A random sample of size 10 from a uniform[0, 5] distribution
-A logical vector indicating whether elements of the sample are greater than 2
-A (length-10) character vector
-A (length-10) factor vector
+* A random sample of size 10 from a uniform[0, 5] distribution.
+* A logical vector indicating whether elements of the sample are greater than 2.
+* A (length-10) character vector.
+* A (length-10) factor vector.
+
 Try to take the mean of each variable in your dataframe. What works and what doesn’t? Why?
 
 In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens? In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. What happens?
@@ -35,10 +36,20 @@ In some cases, you can explicitly convert variables from one type to another. Wr
 1. Firstly, creating the data frame
 
 ```{r creating_data_frame}
+
+# A random sample of size 10 from a uniform[0, 5] distribution
 uniform_sample = runif (10, 0, 5)
+
+# A logical vector indicating whether elements of the sample are greater than 2
 logical_vector = uniform_sample > 2
+
+# A (length-10) character vector
 character_vector = c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j')
-factor_vector = factor(c(1, 2, 3, 4, 5, 5, 4, 3, 2, 1),)
+
+# A (length-10) factor vector
+factor_vector = factor(c(1, 2, 3, 4, 5, 5, 4, 3, 2, 1))
+
+# Creat them to be a data frame
 data_frame = data.frame(uniform_sample, logical_vector, character_vector, factor_vector)
 ```
 
@@ -50,13 +61,15 @@ data_frame = data.frame(uniform_sample, logical_vector, character_vector, factor
 * The mean of the character_vector is `r mean(data_frame$character_vector)`
 * The mean of the factor_vector is `r mean(data_frame$factor_vector)`
 
-From the results of mean for each variable, we can find that only vaiables uniform_sample and logical_vector have mean, that is to say, only numeric or logical can calculate the exact mean. While the variables character_vector and factor_vector are not numeric or logical (they are character or factor), as a result, R can only returning NA for them.
+From the results of mean for each variable, we can find that only vaiables uniform_sample and logical_vector have mean, While the variables character_vector and factor_vector only returned NA. 
+
+It is easy to explain: only numeric and logical variable can be calculated the exact mean. While character or factor variables can not be calculated the exact mean. Variable character_vector and factor_vector are not numeric or logical (they are character or factor), as a result, R can only returning NA for them.
 
 
 3. Last,  explicitly convert variables from one type to another.
 
 
-*    By applies the as.numeric function to the logical, character and factor variable, we can find that all these variable changed into numeric. That is to say, for logical variable, TRUE is assigned to 1 and FALSE is assigned to 0. And for character and factor variable, they are both assigned from 1 to 10.
+*    By applies the as.numeric function to the logical, character and factor variable, we can find that all these variable changed into numeric. That is to say, for logical variable, TRUE is assigned to 1 and FALSE is assigned to 0. And for character and factor variable, they are both coercively assigned to numeric variables.
 
 ```{r coverting_numeric,eval = FALSE}
 as.numeric(data_frame$logical_vector)
@@ -68,21 +81,21 @@ as.numeric(data_frame$factor_vector)
 
 ```{r converting_character_to_factor_to_numeric}
 
-# convert character variable from character to factor
+# First convert character variable from character to factor
 as.factor(data_frame$character_vector)
 
-# then covert it from factor to numeric
+# Then covert it from factor to numeric
 as.numeric(as.factor(data_frame$character_vector))    
 ```
 
 
-*    Similarly, by converting factor variable from factor to character to numeric, we can find that when we coercion covert, NAs will be introduced.
+*    Similarly, by converting factor variable from factor to character to numeric, we can find that when we coercively covert the variable, the factor variable finally convert into numeric variable.
 ```{r coverting_factor_to-character_to_numeric}
 
-# convert factor variable from factor to character
+# First convert factor variable from factor to character
 as.character(data_frame$factor_vector)
 
-# then covert it from character to numeric
+# Then covert it from character to numeric
 as.numeric(as.character(data_frame$factor_vector))
 ```
 
