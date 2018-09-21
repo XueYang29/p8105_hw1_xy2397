@@ -56,10 +56,10 @@ data_frame = data.frame(uniform_sample, logical_vector, character_vector, factor
 
 2. Secondly, take the mean of each variable in the dataframe
 
-* The mean of the uniform_sample is `r mean(data_frame$uniform_sample)`
-* The mean of the logical_vector is `r mean(data_frame$logical_vector)`
-* The mean of the character_vector is `r mean(data_frame$character_vector)`
-* The mean of the factor_vector is `r mean(data_frame$factor_vector)`
+* The mean of the uniform_sample is `r mean(data_frame$uniform_sample)`.
+* The mean of the logical_vector is `r mean(data_frame$logical_vector)`.
+* The mean of the character_vector is `r mean(data_frame$character_vector)`.
+* The mean of the factor_vector is `r mean(data_frame$factor_vector)`.
 
 From the results of mean for each variable, we can find that only vaiables uniform_sample and logical_vector have mean, While the variables character_vector and factor_vector only returned NA. 
 
@@ -69,7 +69,7 @@ It is easy to explain: only numeric and logical variable can be calculated the e
 3. Last,  explicitly convert variables from one type to another.
 
 
-*    By applies the as.numeric function to the logical, character and factor variable, we can find that all these variable changed into numeric. That is to say, for logical variable, TRUE is assigned to 1 and FALSE is assigned to 0. And for character and factor variable, they are both coercively assigned to numeric variables.
+*    By applies the as.numeric function to the logical, character and factor variable, in this case, we can find that all these variable changed into numeric. That's to say, for logical variable, TRUE is assigned to 1 and FALSE is assigned to 0. And for character and factor variable, they are both coercively assigned to numeric variables.
 
 ```{r coverting_numeric,eval = FALSE}
 as.numeric(data_frame$logical_vector)
@@ -77,7 +77,7 @@ as.numeric(data_frame$character_vector)
 as.numeric(data_frame$factor_vector)
 ```
 
-*    By converting character variable from character to factor to numeric, we can find that the character variable finally changed into numeric from 1 to 10.
+*    By converting character variable from character to factor to numeric in this case, we can find that the character variable finally changed into numeric from 1 to 10.
 
 ```{r converting_character_to_factor_to_numeric}
 
@@ -89,7 +89,7 @@ as.numeric(as.factor(data_frame$character_vector))
 ```
 
 
-*    Similarly, by converting factor variable from factor to character to numeric, we can find that when we coercively covert the variable, the factor variable finally convert into numeric variable.
+*    Similarly, in this case, by converting factor variable from factor to character to numeric, we can find that when we coercively covert the variable, the factor variable finally convert into numeric variable.
 ```{r coverting_factor_to-character_to_numeric}
 
 # First convert factor variable from factor to character
@@ -152,14 +152,16 @@ data_frame_xy = data.frame(x, y,logical_vector_xy,numeric_vector_xy,factor_vecto
 
 2. Writing a short description of the vector
 
-* the size of the dataset is row `r nrow(data_frame_xy)` and col `r (ncol(data_frame_xy))` 
-* the mean of x is `r mean(x)` and median of x is `r median(x)`
-* the proportion of cases for which the logical vector is TRUE is `r sum(x + y > 0)/length(logical_vector_xy)`
+* the size of the dataset is  `r nrow(data_frame_xy)` rows and `r (ncol(data_frame_xy))` columns.
+* the mean of x is `r mean(x)` and median of x is `r median(x)`.
+* the proportion of cases for which the logical vector is TRUE is `r sum(x + y > 0)/length(logical_vector_xy)`.
+
 
 3. Making scatterplots of y vs x
 
 *   First scatterplot color points using the logical variable
 ```{r scatterplot_color_logical}
+# using funtion ggplot to make a scatterplot which color points use the logical variable
 ggplot(data_frame_xy, aes(x = x, y = y, color = logical_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by logical variable") 
@@ -167,6 +169,7 @@ labs(title = "Scatterplot of y vs x coloring by logical variable")
 
 *   And export this scatterplot to project directory
 ```{r export_scatterplot}
+# use ggsave function to export this scatterplot to my project directory
 ggsave(filename = "first scatterplot.png",ggplot(data_frame_xy, aes(x = x, y = y, color = logical_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by logical variable") )
@@ -175,6 +178,7 @@ labs(title = "Scatterplot of y vs x coloring by logical variable") )
 
 *   Second scatterplot color points using the numeric variable
 ```{r scatterplot_color_numeric}
+# using funtion ggplot to make a scatterplot which color points use the numeric variable
 ggplot(data_frame_xy, aes(x = x, y = y, color = numeric_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by numeric variable") 
@@ -183,6 +187,7 @@ labs(title = "Scatterplot of y vs x coloring by numeric variable")
 
 *   Third scatterplot color points using the factor variable
 ```{r scatterplot_color_factor}
+# using funtion ggplot to make a scatterplot which color points use the factor variable
 ggplot(data_frame_xy, aes(x = x, y = y, color = factor_vector_xy))+
 geom_point()+
 labs(title = "Scatterplot of y vs x coloring by factor variable") 
