@@ -3,8 +3,7 @@ title: "p8105_hw1_xy2397"
 author: "Xue Yang"
 date: 2018-09-16
 output:
-  pdf_document:
-  html_document:
+    github_document:
     toc: true
     toc_float: true
 ---
